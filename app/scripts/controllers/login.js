@@ -2,8 +2,8 @@
 
 angular.module('stormpathIdpApp')
   .controller('LoginCtrl', function ($scope,Stormpath,$window) {
-    $scope.ready = false;
-    $scope.canRegister = true;
+    $scope.ready = false;//todo: back to false!!!
+    $scope.canRegister = false;
     $scope.errors = {
       badLogin: false,
       notFound: false,
