@@ -2,6 +2,9 @@
 
 angular.module('stormpathIdpApp')
   .controller('ErrorCtrl', function ($scope,Stormpath) {
+    
+    var client = new Stormpath.Client()
+    $scope.jwtPayload = client.jwtPayload
     $scope.errors = Stormpath.errors;
     $scope.inError = false;
     // todo: uncomment!!!!
