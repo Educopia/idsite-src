@@ -35,5 +35,11 @@
       .otherwise({
         redirectTo: '/'
       });
-  });
+  })
+  .constant("restart_uri", "http://resa-stage.educopia.com/teach-ohio/");
+ //  .run(function(Stormpath){
+ //     Stormpath.init.then(function(){
+ //      console.log('cb_uri',Stormpath.client.jwtPayload.cb_uri);
+ //    })
+ // });
 })(window);
