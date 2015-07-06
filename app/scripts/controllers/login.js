@@ -2,6 +2,7 @@
 
 angular.module('stormpathIdpApp')
   .controller('LoginCtrl', function ($scope,Stormpath,$window) {
+    
     $scope.ready = false;//todo: back to false!!!
     $scope.canRegister = false;
     $scope.errors = {
