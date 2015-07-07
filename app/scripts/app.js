@@ -36,7 +36,7 @@
         redirectTo: '/'
       });
   })
-  .constant("restart_uri", "http://resa-stage.educopia.com/teach-ohio/")
+  .constant("restart_uri", "https://resa-app.educopia.com/app/")
  //  .run(function(Stormpath){
  //     Stormpath.init.then(function(){
  //      console.log('cb_uri',Stormpath.client.jwtPayload.cb_uri);
@@ -44,10 +44,10 @@
  // });
  .run(function(Stormpath){
     Stormpath.init.then(function(){
-      console.log('cb_uri',Stormpath.client.jwtPayload.cb_uri);
+      //console.log('cb_uri',Stormpath.client.jwtPayload.cb_uri);
     }).catch(function(err){
-      console.log('init error',err);
-      console.log('cb_uri',Stormpath.client.jwtPayload.cb_uri);
+      //console.log('init error',err);
+      //console.log('cb_uri',Stormpath.client.jwtPayload.cb_uri);
     });
   });
 })(window);
