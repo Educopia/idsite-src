@@ -8,7 +8,7 @@ angular.module('stormpathIdpApp')
     var params = $location.search();
     var stormpath = $window.Stormpath;
     var ieMatch = $window.navigator.userAgent.match(/MSIE ([0-9.]+)/);
-    var client;
+    //var client;
 
     self.init = init.promise;
     self.errors = [];
@@ -39,10 +39,11 @@ angular.module('stormpathIdpApp')
           return;
         }
       }
-      client = new stormpath.Client(function(err,idSiteModel){
+      self.client = new stormpath.Client(function(err,idSiteModel){
         $rootScope.$apply(function(){
           if(err){
             showError(err);
+            init.reject(err);
           }else{
             var m = idSiteModel;
             self.idSiteModel = m;
@@ -55,7 +56,7 @@ angular.module('stormpathIdpApp')
     }
 
     this.login = function login(username,password,cb){
-      client.login({
+      self.client.login({
         login: username,
         password: password
       },function(err,response){
@@ -69,23 +70,23 @@ angular.module('stormpathIdpApp')
       });
     };
 
-    this.register = function register(data,cb){
-      client.register(data,function(err,response){
-        $rootScope.$apply(function(){
-          if(err){
-            cb(err);
-          }else if(response.redirectUrl){
-            redirect(response.redirectUrl);
-          }else{
-            self.isRegistered = true;
-            $location.path('/unverified');
-          }
-        });
-      });
-    };
+    // this.register = function register(data,cb){
+    //   client.register(data,function(err,response){
+    //     $rootScope.$apply(function(){
+    //       if(err){
+    //         cb(err);
+    //       }else if(response.redirectUrl){
+    //         redirect(response.redirectUrl);
+    //       }else{
+    //         self.isRegistered = true;
+    //         $location.path('/unverified');
+    //       }
+    //     });
+    //   });
+    // };
 
     this.verifyEmailToken = function verifyEmailToken(cb){
-      client.verifyEmailToken(function(err){
+      self.client.verifyEmailToken(function(err){
         $rootScope.$apply(function(){
           self.isVerified = err ? false : true;
           cb(err);
@@ -94,7 +95,7 @@ angular.module('stormpathIdpApp')
     };
 
     this.verifyPasswordToken = function verifyPasswordToken(cb){
-      client.verifyPasswordResetToken(function(err, resp) {
+      self.client.verifyPasswordResetToken(function(err, resp) {
         $rootScope.$apply(function(){
           cb(err,resp);
         });
@@ -102,7 +103,7 @@ angular.module('stormpathIdpApp')
     };
 
     this.sendPasswordResetEmail = function sendPasswordResetEmail(email,cb){
-      client.sendPasswordResetEmail(email,function(err) {
+      self.client.sendPasswordResetEmail(email,function(err) {
         $rootScope.$apply(function(){
           cb(err);
         });
@@ -110,7 +111,7 @@ angular.module('stormpathIdpApp')
     };
 
     this.setNewPassword = function setNewPassword(pwTokenVerification,newPassword,cb){
-      client.setAccountPassword(pwTokenVerification,newPassword,function(err, resp) {
+      self.client.setAccountPassword(pwTokenVerification,newPassword,function(err, resp) {
         $rootScope.$apply(function(){
           cb(err,resp);
         });
